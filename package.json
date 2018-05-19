@@ -17,7 +17,11 @@
   },
   "dependencies": {
     "co": "^4.6.0",
+    "cosmiconfig": "^5.0.3",
+    "cross-spawn": "^6.0.5",
+    "debug": "^3.1.0",
     "git-range-files": "^1.0.1",
+    "listr": "^0.14.1",
     "minimatch": "^3.0.4",
     "pify": "^3.0.0"
   }
