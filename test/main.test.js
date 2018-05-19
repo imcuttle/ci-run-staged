@@ -3,21 +3,28 @@
  * @author imcuttle
  * @date 2018/4/4
  */
-const { mockPrompts } = require('edam')
 const { join } = require('path')
-const co = require('co')
+const run = require('../')
 
 describe('main', function() {
-  it(
-    'should edam passed',
-    co.wrap(function*() {
-      const fp = yield mockPrompts(join(__dirname, '../'), {
+  it('should passed', function(done) {
+    run('head', {
+      all: {
+        '*': ['echo 1'],
+        'index*': 'echo 122'
+      }
+    }).then(done)
+  })
 
-      })
-
-      expect(Object.keys(fp.tree)).toEqual(
-        expect.arrayContaining(['package.json', 'index.js'])
-      )
+  it('should fail when head is invalid', function(done) {
+    run('abc', {
+      all: {
+        '*': ['echo 1'],
+        'index*': 'echo 122'
+      }
     })
-  )
+      .then(done)
+      .catch(err => expect(err).not.toBeUndefined())
+      .then(done)
+  })
 })
