@@ -2,7 +2,6 @@
 const logSymbols = require('log-symbols')
 const runStaged = require('./index')
 
-console.error(process.argv[2])
 const range =
   process.argv[2] ||
   process.env.COMMIT_RANGE ||
