@@ -11,7 +11,7 @@ const pify = require('pify')
 const spawn = require('cross-spawn')
 const debug = require('debug')('ci-run-staged')
 const Listr = require('listr')
-
+const nps = require('path')
 
 function loadConfig() {
   const cosmiconfig = require('cosmiconfig')
@@ -72,6 +72,7 @@ function processAsync(process, cmd = '', cb) {
  * }
  */
 const runStaged = function runStaged(range, config) {
+  let cwd = process.cwd()
   return pify(grf)({ head: range }).then(list => {
     debug('rang', range)
     debug('staged file', list)
@@ -102,9 +103,11 @@ const runStaged = function runStaged(range, config) {
               cmd = [cmd]
             }
 
-            let matchedFiles = minimatch.match(listFile, glob, {
-              matchBase: true
-            })
+            let matchedFiles = minimatch
+              .match(listFile, glob, {
+                matchBase: true
+              })
+              .map(filename => nps.join(cwd, filename))
 
             debug('matchedFiles: %o, cmd: %o', matchedFiles, cmd)
 
@@ -130,7 +133,11 @@ const runStaged = function runStaged(range, config) {
                       })
                       .catch(err => {
                         ctx.fail = true
-                        debug('cmd: %s, error: %s happened', eachCmd, err.message)
+                        debug(
+                          'cmd: %s, error: %s happened',
+                          eachCmd,
+                          err.message
+                        )
                         throw err
                       })
                   }
