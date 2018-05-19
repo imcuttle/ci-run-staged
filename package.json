@@ -1,6 +1,6 @@
 {
   "name": "ci-run-staged",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "description": "ci-run-staged",
   "author": "imcuttle",
