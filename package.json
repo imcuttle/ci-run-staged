@@ -1,0 +1,24 @@
+{
+  "name": "ci-run-staged",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "ci-run-staged",
+  "author": "imcuttle",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "ci-run-staged"
+  ],
+  "license": "MIT",
+  "repository": "imcuttle/ci-run-staged",
+  "devDependencies": {
+    "jest": "^22.4.4"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "git-range-files": "^1.0.1",
+    "minimatch": "^3.0.4",
+    "pify": "^3.0.0"
+  }
+}
