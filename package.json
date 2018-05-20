@@ -2,12 +2,14 @@
   "name": "ci-run-staged",
   "version": "1.0.1",
   "main": "index.js",
-  "description": "ci-run-staged",
+  "description": "Run command inferred by git staged file expediently in ci",
   "author": "imcuttle",
   "scripts": {
     "test": "jest"
   },
   "keywords": [
+    "git-commit",
+    "commit range",
     "ci-run-staged"
   ],
   "bin": "./bin.js",
