@@ -31,6 +31,19 @@ Be inspired by [lint-staged](https://github.com/okonet/lint-staged)
 
 3. Execute `npm run ci-run-staged` in your ci scripts.
 
+## Statuses
+
+SGF-Status (git status code)
+
+* Added (A)
+* Copied (C)
+* Deleted (D)
+* Modified (M)
+* Renamed (R)
+* Type-Change (T) [i.e. regular file, symlink, submodule, etc.]
+* Unmerged (U)
+* Unknown (X)
+
 ## Command line
 
 ```
