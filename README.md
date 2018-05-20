@@ -35,14 +35,14 @@ Be inspired by [lint-staged](https://github.com/okonet/lint-staged)
 
 SGF-Status (git status code)
 
-* Added (A)
-* Copied (C)
-* Deleted (D)
-* Modified (M)
-* Renamed (R)
-* Type-Change (T) [i.e. regular file, symlink, submodule, etc.]
-* Unmerged (U)
-* Unknown (X)
+* Added
+* Copied
+* Deleted
+* Modified
+* Renamed
+* Type-Change [i.e. regular file, symlink, submodule, etc.]
+* Unmerged
+* Unknown
 
 ## Command line
 
