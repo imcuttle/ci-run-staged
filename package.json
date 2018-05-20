@@ -1,6 +1,6 @@
 {
   "name": "ci-run-staged",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "description": "Run command inferred by git staged file expediently in ci",
   "author": "imcuttle",
