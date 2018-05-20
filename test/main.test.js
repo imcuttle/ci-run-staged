@@ -8,7 +8,7 @@ const run = require('../')
 
 describe('main', function() {
   it('should passed', function(done) {
-    run('head', {
+    run('HEAD', {
       all: {
         '*': ['echo 1'],
         'index*': 'echo 122'
