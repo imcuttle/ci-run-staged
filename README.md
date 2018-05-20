@@ -24,6 +24,12 @@ Be inspired by [lint-staged](https://github.com/okonet/lint-staged)
 +     "doc/**/*.md": [
 +       "send email..."
 +     ]
++   },
++   "all": {
++     "*": "cmd"
++   }
++   "deleted|Modified": {
++     "*": "cmd"
 +   }
 + }
 }
