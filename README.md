@@ -16,9 +16,9 @@ Be inspired by [lint-staged](https://github.com/okonet/lint-staged)
 
 ```diff
 {
-"scripts": {
+  "scripts": {
 +   "ci-run-staged": "ci-run-staged"
-},
+  },
 + "ci-run-staged": {
 +   "added": {
 +     "doc/**/*.md": [
