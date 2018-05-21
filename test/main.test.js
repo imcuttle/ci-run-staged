@@ -3,6 +3,7 @@
  * @author imcuttle
  * @date 2018/4/4
  */
+process.env.DEBUG = 'ci-run-staged'
 const { join } = require('path')
 const run = require('../')
 
@@ -11,7 +12,8 @@ describe('main', function() {
     run('HEAD', {
       all: {
         '*': ['echo 1'],
-        'index*': 'echo 122'
+        'index*': 'echo 122',
+        'sss': 'nosss'
       }
     }).then(done)
   })

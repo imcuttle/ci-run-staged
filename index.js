@@ -110,6 +110,9 @@ const runStaged = function runStaged(range, config) {
               .map(filename => nps.join(cwd, filename))
 
             debug('matchedFiles: %o, cmd: %o', matchedFiles, cmd)
+            if (!matchedFiles.length) {
+              return
+            }
 
             let task = new Listr(
               cmd.map(eachCmd => {
