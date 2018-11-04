@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "cosmiconfig": "^5.0.3",
-    "cross-spawn": "^6.0.5",
     "debug": "^3.1.0",
-    "git-range-files": "^1.0.1",
+    "execa": "^1.0.0",
+    "git-range-files": "^1.2.0",
     "listr": "^0.14.1",
     "log-symbols": "^2.2.0",
     "minimatch": "^3.0.4",
