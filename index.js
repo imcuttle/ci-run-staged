@@ -8,7 +8,7 @@
 const minimatch = require('minimatch')
 const grf = require('git-range-files')
 const pify = require('pify')
-const spawn = require('cross-spawn')
+const execa = require('execa')
 const debug = require('debug')('ci-run-staged')
 const Listr = require('listr')
 const nps = require('path')
@@ -17,46 +17,6 @@ function loadConfig() {
   const cosmiconfig = require('cosmiconfig')
   const explorer = cosmiconfig('ci-run-staged')
   return explorer.search()
-}
-
-function processAsync(process, cmd = '', cb) {
-  if (typeof cmd === 'function') {
-    cb = cmd
-    cmd = ''
-  }
-
-  debug('running %s', cmd)
-  process.on('error', function(err) {
-    debug('error happened %s of cmd: %s', err.message, cmd)
-    cb && cb(err)
-  })
-
-  let stderr = ''
-  let stdout = ''
-  process.stderr &&
-    process.stderr.on('data', chunk => {
-      stderr += chunk.toString()
-    })
-  process.stdout &&
-    process.stdout.on('data', chunk => {
-      stdout += chunk.toString()
-    })
-  process.on('close', function(status) {
-    debug('exit code(%s) of cmd: %s', status, cmd)
-    if (status == 0) {
-      cb && cb(null, stdout)
-    } else {
-      cb &&
-        cb(
-          new Error(
-            (
-              (cmd ? `'${cmd}' failed with status ` + status + '\n' : '') +
-              stderr
-            ).trim()
-          )
-        )
-    }
-  })
 }
 
 /**
@@ -73,7 +33,8 @@ function processAsync(process, cmd = '', cb) {
  */
 const runStaged = function runStaged(range, config) {
   let cwd = process.cwd()
-  return pify(grf)({ head: range }).then(list => {
+  grf.cwd = cwd
+  return pify(grf)({ head: range, relative: true }).then(list => {
     debug('rang', range)
     debug('staged file', list)
 
@@ -113,6 +74,7 @@ const runStaged = function runStaged(range, config) {
             if (!matchedFiles.length) {
               return
             }
+            debug('glob', glob)
 
             let task = new Listr(
               cmd.map(eachCmd => {
@@ -121,25 +83,18 @@ const runStaged = function runStaged(range, config) {
                   enabled: ctx => !ctx.fail,
                   task: (ctx, task) => {
                     ctx.fail = false
-                    let chunks = eachCmd.split(/\s/)
-                    const proc = spawn(
-                      chunks[0],
-                      chunks.concat(matchedFiles).slice(1),
-                      {
-                        stdio: 'pipe'
-                      }
-                    )
-                    return pify(processAsync)(proc, eachCmd)
-                      .then(output => {
-                        debug('cmd: %s, output: \n%s', eachCmd, output)
-                        return { cmd: eachCmd, output: output }
+                    execa
+                      .shell([eachCmd].concat(matchedFiles).join(' '))
+                      .then(({ stdout }) => {
+                        debug('cmd: %s, output: \n%s', eachCmd, stdout)
+                        return { cmd: eachCmd, output: stdout }
                       })
                       .catch(err => {
                         ctx.fail = true
                         debug(
-                          'cmd: %s, error: %s happened',
+                          'cmd: %s, error: %O happened',
                           eachCmd,
-                          err.message
+                          err
                         )
                         throw err
                       })
