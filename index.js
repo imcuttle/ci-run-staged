@@ -31,8 +31,8 @@ function loadConfig() {
  *   }
  * }
  */
-const runStaged = function runStaged(range, config) {
-  let cwd = process.cwd()
+const runStaged = function runStaged(range, config = {}) {
+  const cwd = config.cwd || process.cwd()
   grf.cwd = cwd
   return pify(grf)({ head: range, relative: true }).then(list => {
     debug('rang', range)
