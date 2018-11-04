@@ -12,6 +12,9 @@
     "commit range",
     "ci-run-staged"
   ],
+  "jest": {
+    "testEnvironment": "node"
+  },
   "bin": "./bin.js",
   "license": "MIT",
   "repository": "imcuttle/ci-run-staged",
