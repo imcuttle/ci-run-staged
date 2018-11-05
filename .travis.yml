@@ -19,5 +19,6 @@ before_script:
   - npm install codecov
 script:
   - npm test -- --coverage
+  - DEBUG=ci-run-staged ./bin.js
 after_script:
   - codecov --token=$CODECOV_TOKEN
