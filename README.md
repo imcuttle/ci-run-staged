@@ -69,3 +69,17 @@ Can be enabled by setting the environment variable `DEBUG` to `ci-run-staged*`.
 ```bash
 DEBUG=ci-run-staged* ./node_modules/.bin/ci-run-staged
 ```
+
+## FAQ
+
+#### How to include dot files
+
+```json
+{
+  "ci-run-staged": {
+    "all": {
+      "{.,}*": "echo"
+    }
+  }
+}
+```

@@ -24,10 +24,9 @@
   },
   "ci-run-staged": {
     "Modified": {
-      "**/*": [
+      "**/{.,}*": [
         "echo ok",
-        "echo ok",
-        "sleep ok"
+        "echo ok"
       ]
     }
   },
