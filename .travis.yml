@@ -16,6 +16,7 @@ install:
   - npm install
 
 before_script:
+  - git log --pretty=oneline
   - npm install codecov
 script:
   - npm test -- --coverage
