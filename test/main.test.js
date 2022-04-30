@@ -25,8 +25,14 @@ describe('main', function() {
       .catch(err => expect(err).not.toBeUndefined())
       .then(() => {
         expect(shell).toHaveBeenCalledTimes(2)
-        expect(shell).toHaveBeenCalledWith('echo 1 ' + [join(__dirname, '../package.json'), join(__dirname, '../package-lock.json'), join(__dirname, '../index.js')].join(' '))
-        expect(shell).toBeCalledWith(['echo 122 && echo', join(__dirname, '../index.js')].join(' '))
+        expect(shell).toHaveBeenCalledWith('echo 1 ' + [join(__dirname, '../package.json'), join(__dirname, '../package-lock.json'), join(__dirname, '../index.js')].join(' '), {
+          stdio: 'inherit',
+          cwd: process.cwd()
+        })
+        expect(shell).toBeCalledWith(['echo 122 && echo', join(__dirname, '../index.js')].join(' '), {
+          stdio: 'inherit',
+          cwd: process.cwd()
+        })
         done()
       })
   })

@@ -8,6 +8,8 @@ const range =
   process.env.TRAVIS_COMMIT_RANGE ||
   process.env.CIRCLE_COMPARE_URL
 
+const errorLog = console.error.bind(console, logSymbols.error)
+
 runStaged
   .loadConfig()
   .then(result => {
@@ -20,4 +22,11 @@ runStaged
     }
     return runStaged(range, result.config)
   })
-  .catch(console.error.bind(console, logSymbols.error))
+  .catch(error => {
+    if (error.code === 'CI_RUN_STAGED_TASK_ERROR') {
+      process.exitCode = 1
+      return
+    }
+    errorLog(error)
+    process.exitCode = 1
+  })
